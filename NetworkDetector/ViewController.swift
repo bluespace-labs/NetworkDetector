@@ -11,7 +11,7 @@ import Network
 
 class ViewController: UIViewController {
     @IBOutlet weak var resultTextView: UITextView!
-    var monitor = NWPathMonitor()
+    var monitor: NWPathMonitor!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +24,9 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onDetectButtonTouched(_ sender: Any) {
+        if monitor == nil {
+            monitor = NWPathMonitor()
+        }
         monitor.start(queue: DispatchQueue.main)
         monitor.pathUpdateHandler = { self.show($0) }
         show(monitor.currentPath)
